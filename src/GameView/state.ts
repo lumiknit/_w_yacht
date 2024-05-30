@@ -106,7 +106,7 @@ export const initialState = (config: GameConfig): GameState => {
 
 export const resetDiceRolls = (state: GameState) => {
 	state.setLeftRolls(3);
-	state.setDices(ds => ds.map(dice => ({ value: 0, kept: false })));
+	state.setDices(ds => ds.map(() => ({ value: 0, kept: false })));
 };
 
 export const rollDices = (state: GameState) => {
@@ -280,7 +280,7 @@ export const getCategoryPoints = (
 		default: {
 			const scores = state.scores();
 			return scores[category] !== undefined
-				? filled(scores[category])
+				? filled(scores[category]!)
 				: { filled: false, value: guessScore(state, category) };
 		}
 	}
