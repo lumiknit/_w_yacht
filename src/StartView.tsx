@@ -1,4 +1,4 @@
-import { Accessor, Component, JSXElement, Setter, Show } from "solid-js";
+import { Component, createSignal, JSXElement, Setter, Show } from "solid-js";
 
 import { block } from "@lumiknit/solid-fekit";
 import {
@@ -23,6 +23,8 @@ type Props = {
 };
 
 const StartView: Component<Props> = props => {
+	const [showMoreOptions, setShowMoreOptions] = createSignal(false);
+
 	const CheckItem: Component<CheckItemProps> = p => {
 		return (
 			<block.Checkbox
@@ -62,69 +64,81 @@ const StartView: Component<Props> = props => {
 				</a>
 			</block.DropdownButton>
 
-			<h3> Straight </h3>
+			<br />
 
-			<CheckItem
-				checked={c => c.smallStraightScore === 30}
-				onChange={v => c => ({ ...c, smallStraightScore: v ? 30 : 15 })}>
-				S. Straight 30pt. (Default is 15pt.)
-			</CheckItem>
+			<div class="more-options">
+				<div
+					class="more-options-header"
+					onClick={() => setShowMoreOptions(s => !s)}>
+					{showMoreOptions() ? "Less Options..." : "More Options..."}
+				</div>
 
-			<CheckItem
-				checked={c => c.largeStraightScore === 40}
-				onChange={v => c => ({ ...c, largeStraightScore: v ? 40 : 30 })}>
-				L. Straight 40pt. (Default is 30pt.)
-			</CheckItem>
+				<Show when={showMoreOptions()}>
+					<h3> Straight </h3>
 
-			<h3> Full House </h3>
+					<CheckItem
+						checked={c => c.smallStraightScore === 30}
+						onChange={v => c => ({ ...c, smallStraightScore: v ? 30 : 15 })}>
+						S. Straight 30pt. (Default is 15pt.)
+					</CheckItem>
 
-			<CheckItem
-				checked={c => c.fullHouseFixedScore}
-				onChange={v => c => ({ ...c, fullHouseFixedScore: v })}>
-				Full House 25pt. (Default is sum)
-			</CheckItem>
+					<CheckItem
+						checked={c => c.largeStraightScore === 40}
+						onChange={v => c => ({ ...c, largeStraightScore: v ? 40 : 30 })}>
+						L. Straight 40pt. (Default is 30pt.)
+					</CheckItem>
 
-			<CheckItem
-				checked={c => c.yachtIsFullHouse}
-				onChange={v => c => ({ ...c, yachtIsFullHouse: v })}>
-				Yacht is Full House
-			</CheckItem>
+					<h3> Full House </h3>
 
-			<h3> N of a Kind </h3>
+					<CheckItem
+						checked={c => c.fullHouseFixedScore}
+						onChange={v => c => ({ ...c, fullHouseFixedScore: v })}>
+						Full House 25pt. (Default is sum)
+					</CheckItem>
 
-			<CheckItem
-				checked={c => c.threeOfAKind}
-				onChange={v => c => ({ ...c, threeOfAKind: v })}>
-				Three of a Kind
-			</CheckItem>
+					<CheckItem
+						checked={c => c.yachtIsFullHouse}
+						onChange={v => c => ({ ...c, yachtIsFullHouse: v })}>
+						Yacht is Full House
+					</CheckItem>
 
-			<Show when={props.config.threeOfAKind}>
-				<CheckItem
-					checked={c => c.threeOfAKindAll}
-					onChange={v => c => ({ ...c, threeOfAKindAll: v })}>
-					3oK Score is Sum of All Dices
-				</CheckItem>
-			</Show>
+					<h3> N of a Kind </h3>
 
-			<CheckItem
-				checked={c => c.fourOfAKindAll}
-				onChange={v => c => ({ ...c, fourOfAKindAll: v })}>
-				4oK Score is Sum of All Dices
-			</CheckItem>
+					<CheckItem
+						checked={c => c.threeOfAKind}
+						onChange={v => c => ({ ...c, threeOfAKind: v })}>
+						Three of a Kind
+					</CheckItem>
 
-			<h3> Bonus </h3>
+					<Show when={props.config.threeOfAKind}>
+						<CheckItem
+							checked={c => c.threeOfAKindAll}
+							onChange={v => c => ({ ...c, threeOfAKindAll: v })}>
+							3oK Score is Sum of All Dices
+						</CheckItem>
+					</Show>
 
-			<CheckItem
-				checked={c => c.upperSectionBonus}
-				onChange={v => c => ({ ...c, upperSectionBonus: v })}>
-				Up-sec. Bonus (+35pt.)
-			</CheckItem>
+					<CheckItem
+						checked={c => c.fourOfAKindAll}
+						onChange={v => c => ({ ...c, fourOfAKindAll: v })}>
+						4oK Score is Sum of All Dices
+					</CheckItem>
 
-			<CheckItem
-				checked={c => c.yahtzeeBonus}
-				onChange={v => c => ({ ...c, yahtzeeBonus: v })}>
-				Yahtzee Bonus (100pt. for each additional)
-			</CheckItem>
+					<h3> Bonus </h3>
+
+					<CheckItem
+						checked={c => c.upperSectionBonus}
+						onChange={v => c => ({ ...c, upperSectionBonus: v })}>
+						Up-sec. Bonus (+35pt.)
+					</CheckItem>
+
+					<CheckItem
+						checked={c => c.yahtzeeBonus}
+						onChange={v => c => ({ ...c, yahtzeeBonus: v })}>
+						Yahtzee Bonus (100pt. for each additional)
+					</CheckItem>
+				</Show>
+			</div>
 		</div>
 	);
 };

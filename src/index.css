@@ -52,6 +52,21 @@ svg {
 	height: 100dvh;
 }
 
+.more-options {
+	padding: 1rem;
+	border: 1px solid rgb(var(--c-rgb-fg));
+	border-radius: 0.5rem;
+	margin: 0.5rem;
+	display: flex;
+	flex-direction: column;
+}
+
+.more-options-header {
+	color: rgb(var(--c-rgb-primary));
+	cursor: pointer;
+	user-select: none;
+}
+
 .score-sheet {
 	display: flex;
 	flex-direction: row;
@@ -73,6 +88,7 @@ svg {
 
 .score-sheet td {
 	border: 1px solid rgb(var(--c-rgb-fg));
+	height: 1.5rem;
 }
 
 .score-sheet tfoot tr {

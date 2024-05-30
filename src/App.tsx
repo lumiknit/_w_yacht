@@ -6,24 +6,47 @@ import StartView from "./StartView";
 import { createSignal, Match, Switch } from "solid-js";
 import GameView from "./GameView/GameView";
 import { config51WordwideGames } from "./game";
+import { initialState } from "./GameView/state";
+import ScoreView from "./ScoreView";
+
+type ViewState = "start" | "game" | "score";
 
 const App = () => {
+	const [view, setView] = createSignal<ViewState>("start");
 	const [config, setConfig] = createSignal(config51WordwideGames());
-	const [started, setStarted] = createSignal(false);
+	const [state, setState] = createSignal(initialState(config()));
+
+	const handleGameOver = () => {
+		setView("score");
+	};
+
+	const handleReturn = () => {
+		setView("start");
+	};
+
+	const handleStart = () => {
+		setView("game");
+		const newState = initialState(config());
+		newState.onGameOver = handleGameOver;
+		setState(newState);
+	};
 
 	return (
 		<>
 			<Toaster />
 			<Switch>
-				<Match when={!started()}>
+				<Match when={view() === "start"}>
 					<StartView
 						config={config()}
 						setConfig={setConfig}
-						start={() => setStarted(true)}
+						start={handleStart}
 					/>
 				</Match>
-				<Match when={started()}>
-					<GameView config={config()} />
+				<Match when={view() === "game"}>
+					<GameView state={state()} />
+				</Match>
+				<Match when={view() === "score"}>
+					<ScoreView state={state()} onReturn={handleReturn} />
 				</Match>
 			</Switch>
 		</>

@@ -1,5 +1,6 @@
 import { Accessor, batch, createSignal, Setter } from "solid-js";
 import { GameConfig } from "../game";
+import toast from "solid-toast";
 
 export type DiceState = {
 	value: number;
@@ -74,6 +75,8 @@ export type GameState = {
 
 	rolling: Accessor<number | undefined>;
 	setRolling: Setter<number | undefined>;
+
+	onGameOver?: () => void;
 };
 
 export const initialState = (config: GameConfig): GameState => {
@@ -287,6 +290,11 @@ export const fillScore = (state: GameState, category: Category) => () => {
 	if (state.rolling() !== undefined || state.scores()[category] !== undefined) {
 		return;
 	}
+	if (state.dices().findIndex(x => x.value < 1) >= 0) {
+		toast.error("Please roll the dice!");
+		return;
+	}
+
 	const dices = state.dices();
 	let isYaucht = true;
 	for (let i = 0; i < dices.length; i++) {
@@ -314,5 +322,16 @@ export const fillScore = (state: GameState, category: Category) => () => {
 		}
 		// Reset dices
 		resetDiceRolls(state);
+
+		// Check game over
+		for (let cat of [
+			...UPPER_SECTION_CATEGORIES,
+			...LOWER_SECTION_CATEGORIES,
+		]) {
+			if (state.scores()[cat] === undefined) {
+				return;
+			}
+		}
+		state.onGameOver?.();
 	});
 };
