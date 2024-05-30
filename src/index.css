@@ -1,0 +1,131 @@
+:root {
+	--c-dice-1: #cf394b;
+	--c-dice-2: #d66639;
+	--c-dice-3: #d6aa39;
+	--c-dice-4: #45a57b;
+	--c-dice-5: #4a5da8;
+	--c-dice-6: #9045a1;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--c-dice-1: #fc919d;
+		--c-dice-2: #ffb395;
+		--c-dice-3: #ffe195;
+		--c-dice-4: #84eabe;
+		--c-dice-5: #8d9ee9;
+		--c-dice-6: #d683e8;
+	}
+}
+
+svg {
+	vertical-align: text-top;
+}
+
+.dice-1-c {
+	color: var(--c-dice-1);
+}
+
+.dice-2-c {
+	color: var(--c-dice-2);
+}
+
+.dice-3-c {
+	color: var(--c-dice-3);
+}
+
+.dice-4-c {
+	color: var(--c-dice-4);
+}
+
+.dice-5-c {
+	color: var(--c-dice-5);
+}
+
+.dice-6-c {
+	color: var(--c-dice-6);
+}
+
+#root {
+	margin: 0;
+	width: 100dvw;
+	height: 100dvh;
+}
+
+.score-sheet {
+	display: flex;
+	flex-direction: row;
+	background-color: rgb(var(--c-rgb-bg-dim));
+	padding: 0.75rem;
+	gap: 0.5rem;
+	border-radius: 0.5rem;
+}
+
+.half-sheet {
+	flex: 1;
+	display: table;
+	border: 2px solid rgb(var(--c-rgb-fg));
+}
+
+.score-sheet table {
+	border-collapse: collapse;
+}
+
+.score-sheet td {
+	border: 1px solid rgb(var(--c-rgb-fg));
+}
+
+.score-sheet tfoot tr {
+	border: 2px solid rgb(var(--c-rgb-fg));
+}
+
+.score-cell-label {
+	padding: 0.25rem;
+	text-align: left;
+}
+
+.score-cell-points {
+	padding: 0.25rem;
+	text-align: right;
+	font-weight: bold;
+}
+
+.kept-dices {
+	background-color: rgb(var(--c-rgb-bg-dim));
+	padding: 0.25rem 10rem 4rem 10rem;
+	border-radius: 1rem;
+}
+
+.dice {
+	display: inline-block;
+	font-size: 3rem;
+	margin: 0.5rem;
+
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	transition: transform 0.1s ease-in-out;
+}
+
+.dice.rolling:nth-child(1) {
+	transform: scale(1.1) rotate(3deg);
+}
+.dice.rolling:nth-child(2) {
+	transform: scale(1.1) rotate(-1deg);
+}
+.dice.rolling:nth-child(3) {
+	transform: scale(1.1) rotate(-2deg);
+}
+.dice.rolling:nth-child(4) {
+	transform: scale(1.1) rotate(2deg);
+}
+.dice.rolling:nth-child(5) {
+	transform: scale(1.1) rotate(1deg);
+}
+
+.kept-dice {
+	transform: translate(0, -1.5em) rotate(90deg);
+}
