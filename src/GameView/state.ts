@@ -189,6 +189,7 @@ export type CategoryPoints = {
 export const guessScore = (state: GameState, category: Category): number => {
 	const dices = state.dices();
 	const sorted = dices.map(d => d.value).sort((a, b) => a - b);
+	console.log(sorted);
 	const count = [0, 0, 0, 0, 0, 0, 0];
 	sorted.forEach(d => count[d]++);
 
@@ -248,8 +249,8 @@ export const guessScore = (state: GameState, category: Category): number => {
 		}
 		case "largeStraight":
 			// Check if there are 5 dices in a row
-			for (let i = 0; i < 5; i++) {
-				if (sorted[i] !== i + 1) {
+			for (let i = 1; i < 5; i++) {
+				if (sorted[i - 1] + 1 !== sorted[i]) {
 					return 0;
 				}
 			}
