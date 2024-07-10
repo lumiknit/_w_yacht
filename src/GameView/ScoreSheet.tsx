@@ -29,8 +29,7 @@ const Entry: Component<EntryProps> = props => {
 					<Match when={props.value.filled}>{props.value.value}</Match>
 					<Match when={true}>
 						<block.Button
-							class="px-2"
-							small
+							class="px-2 w-100 score-btn"
 							color={props.value.value > 0 ? "primary" : "secondary"}
 							onClick={fillScore(props.state, props.key)}>
 							{props.value.value}

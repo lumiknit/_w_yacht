@@ -8,6 +8,7 @@ import {
 	GameConfig,
 } from "./game";
 import { BsGearFill, BsPlay } from "solid-icons/bs";
+import { TbBrandGithub } from "solid-icons/tb";
 
 type CheckItemProps = {
 	checked: (config: GameConfig) => boolean;
@@ -37,7 +38,13 @@ const StartView: Component<Props> = props => {
 
 	return (
 		<div class="w-100 d-flex flex-column justify-center align-center">
-			<h1> Solitaire Yacht Dice </h1>
+			<h1>
+				{" "}
+				Solitaire Yacht Dice
+				<a href="https://github.com/lumiknit/_w_yacht" target="_blank">
+					<TbBrandGithub />
+				</a>
+			</h1>
 			<block.Button color="primary" onClick={props.start}>
 				<BsPlay />
 				Start

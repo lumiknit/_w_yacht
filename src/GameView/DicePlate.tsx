@@ -8,7 +8,8 @@ import { GameState, toggleKeepDices } from "./state";
 type Props = {
 	state: GameState;
 
-	onRoll: () => void;
+	onRollStart: () => void;
+	onRollEnd: () => void;
 };
 
 const DicePlate: Component<Props> = props => {
@@ -35,7 +36,12 @@ const DicePlate: Component<Props> = props => {
 					</block.Button>
 				</Match>
 				<Match when={true}>
-					<block.Button color="primary" onClick={props.onRoll}>
+					<block.Button
+						color="primary"
+						onPointerDown={props.onRollStart}
+						onPointerUp={props.onRollEnd}
+						onPointerLeave={props.onRollEnd}
+						onPointerCancel={props.onRollEnd}>
 						Roll ({props.state.leftRolls()} / 3)
 					</block.Button>
 				</Match>

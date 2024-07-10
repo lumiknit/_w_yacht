@@ -109,35 +109,40 @@ export const resetDiceRolls = (state: GameState) => {
 	state.setDices(ds => ds.map(() => ({ value: 0, kept: false })));
 };
 
+const setDicesRandom = (state: GameState) => {
+	state.setDices(ds => {
+		return ds.map(dice =>
+			dice.kept
+				? dice
+				: { value: Math.floor(Math.random() * 6) + 1, kept: false },
+		);
+	});
+};
+
 export const rollDices = (state: GameState) => {
 	if (state.rolling() !== undefined) {
 		return;
 	}
 
-	const setDicesRandom = () => {
-		state.setDices(ds => {
-			return ds.map(dice =>
-				dice.kept
-					? dice
-					: { value: Math.floor(Math.random() * 6) + 1, kept: false },
-			);
-		});
-	};
-
-	const rollingInterval = setInterval(() => {
-		setDicesRandom();
-	}, 25);
-
 	state.setRolling(
-		setTimeout(() => {
-			batch(() => {
-				setDicesRandom();
-				state.setLeftRolls(rolls => rolls - 1);
-				state.setRolling();
-				clearInterval(rollingInterval);
-			});
-		}, 400),
+		setInterval(() => {
+			setDicesRandom(state);
+		}, 30),
 	);
+};
+
+export const stopRollDices = (state: GameState) => {
+	if (state.rolling() === undefined) {
+		return;
+	}
+	batch(() => {
+		setDicesRandom(state);
+		state.setLeftRolls(rolls => rolls - 1);
+		state.setRolling(r => {
+			clearInterval(r);
+			return undefined;
+		});
+	});
 };
 
 export const toggleKeepDices = (state: GameState, indices: Set<number>) => {

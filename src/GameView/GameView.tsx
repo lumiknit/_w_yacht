@@ -1,7 +1,7 @@
 import { Component } from "solid-js";
 import DicePlate from "./DicePlate";
 import ScoreSheet from "./ScoreSheet";
-import { GameState, rollDices } from "./state";
+import { GameState, rollDices, stopRollDices } from "./state";
 import toast from "solid-toast";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 };
 
 const GameView: Component<Props> = props => {
-	const handleRoll = () => {
+	const handleRollStart = () => {
 		if (props.state.leftRolls() <= 0) {
 			toast.error("No more rolls left");
 			return;
@@ -17,10 +17,18 @@ const GameView: Component<Props> = props => {
 		rollDices(props.state);
 	};
 
+	const handleRollEnd = () => {
+		stopRollDices(props.state);
+	};
+
 	return (
 		<div class="game">
 			<ScoreSheet state={props.state} />
-			<DicePlate state={props.state} onRoll={handleRoll} />
+			<DicePlate
+				state={props.state}
+				onRollStart={handleRollStart}
+				onRollEnd={handleRollEnd}
+			/>
 		</div>
 	);
 };

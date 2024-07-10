@@ -88,7 +88,7 @@ svg {
 
 .score-sheet td {
 	border: 1px solid rgb(var(--c-rgb-fg));
-	height: 1.5rem;
+	height: 1.8rem;
 }
 
 .score-sheet tfoot tr {
@@ -104,6 +104,10 @@ svg {
 	padding: 0.25rem;
 	text-align: right;
 	font-weight: bold;
+}
+
+.score-btn {
+	height: 100%;
 }
 
 .kept-dices {
