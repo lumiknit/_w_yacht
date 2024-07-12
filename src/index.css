@@ -111,6 +111,7 @@ svg {
 }
 
 .kept-dices {
+	color: rgba(var(--c-rgb-fg), 0.5);
 	background-color: rgb(var(--c-rgb-bg-dim));
 	padding: 0.25rem 10rem 4rem 10rem;
 	border-radius: 1rem;
@@ -148,4 +149,10 @@ svg {
 
 .kept-dice {
 	transform: translate(0, -1.5em) rotate(90deg);
+}
+
+button.btn-roll {
+	font-size: 1.25rem;
+	font-weight: bold;
+	padding: 1rem 2rem !important;
 }

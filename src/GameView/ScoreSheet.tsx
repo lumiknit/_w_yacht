@@ -52,8 +52,8 @@ const HalfSheet: Component<HalfSheetProps> = props => {
 	return (
 		<table class={`half-sheet ${props.class}`}>
 			<colgroup>
-				<col style="width: 66%;" />
-				<col style="width: 34%;" />
+				<col />
+				<col style="width: 6rem;" />
 			</colgroup>
 			<tbody>
 				<For each={props.keys}>

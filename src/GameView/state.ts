@@ -1,6 +1,7 @@
 import { Accessor, batch, createSignal, Setter } from "solid-js";
 import { GameConfig } from "../game";
 import toast from "solid-toast";
+import { vibratePick, vibrateRoll } from "../vibrate";
 
 export type DiceState = {
 	value: number;
@@ -127,6 +128,7 @@ export const rollDices = (state: GameState) => {
 	state.setRolling(
 		setInterval(() => {
 			setDicesRandom(state);
+			vibrateRoll();
 		}, 30),
 	);
 };
@@ -137,6 +139,7 @@ export const stopRollDices = (state: GameState) => {
 	}
 	batch(() => {
 		setDicesRandom(state);
+		vibratePick();
 		state.setLeftRolls(rolls => rolls - 1);
 		state.setRolling(r => {
 			clearInterval(r);
@@ -309,6 +312,8 @@ export const fillScore = (state: GameState, category: Category) => () => {
 			break;
 		}
 	}
+
+	vibratePick();
 
 	const score = guessScore(state, category);
 	batch(() => {

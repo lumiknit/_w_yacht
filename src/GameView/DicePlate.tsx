@@ -4,6 +4,7 @@ import { block } from "@lumiknit/solid-fekit";
 
 import Dice from "./Dice";
 import { GameState, toggleKeepDices } from "./state";
+import { vibratePick } from "../vibrate";
 
 type Props = {
 	state: GameState;
@@ -23,7 +24,10 @@ const DicePlate: Component<Props> = props => {
 						<Dice
 							rolling={props.state.rolling}
 							dice={dice}
-							onClick={() => toggleKeepDices(props.state, new Set([i]))}
+							onClick={() => {
+								toggleKeepDices(props.state, new Set([i]));
+								vibratePick();
+							}}
 						/>
 					)}
 				</Index>
@@ -37,6 +41,7 @@ const DicePlate: Component<Props> = props => {
 				</Match>
 				<Match when={true}>
 					<block.Button
+						class="btn-roll"
 						color="primary"
 						onPointerDown={props.onRollStart}
 						onPointerUp={props.onRollEnd}
